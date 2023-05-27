@@ -28,12 +28,12 @@ const Order = () => {
             <Cover img={orderCover} title={'OUR SHOP'} details={'would you like to tray a dish'}></Cover>
             <div className="text-center mt-28 ">
                 <Tabs defaultIndex={index} onSelect={(index) => setIndex(index)}>
-                    <TabList className=''>
-                        <Tab>SALAD</Tab>
-                        <Tab>PIZZA</Tab>
-                        <Tab>SOUP</Tab>
-                        <Tab>DESERT</Tab>
-                        <Tab>DRINK</Tab>
+                    <TabList className='font-bold text-2xl mb-16 text-[#151515]'>
+                        <Tab selectedClassName="text-[#BB8506] underline">SALAD</Tab>
+                        <Tab selectedClassName="text-[#BB8506] underline">PIZZA</Tab>
+                        <Tab selectedClassName="text-[#BB8506] underline">SOUP</Tab>
+                        <Tab selectedClassName="text-[#BB8506] underline">DESERT</Tab>
+                        <Tab selectedClassName="text-[#BB8506] underline">DRINK</Tab>
                     </TabList>
                     <TabPanel>
                         <OrderTab items={salad}></OrderTab>
