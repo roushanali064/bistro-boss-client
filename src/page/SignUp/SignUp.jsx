@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from '../../assets/others/authentication2.png'
 import imgBg from '../../assets/others/authentication.png'
 import { Helmet } from "react-helmet-async";
@@ -11,23 +11,34 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const SignUp = () => {
-    const { register, handleSubmit,reset,  formState: { errors } } = useForm();
-    const {CreateUserWithEmail}=useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const form = location.state?.from?.pathname || "/"
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { CreateUserWithEmail, updateUserProfile } = useContext(AuthContext)
     const onSubmit = data => {
-        CreateUserWithEmail(data.email,data.password)
-        .then(res=>{
-            const loggedUser= res.user;
-            console.log(loggedUser)
-            Swal.fire(
-                'Account Create SuccessFuly!',
-                'You clicked the button!',
-                'success'
-              )
+        CreateUserWithEmail(data.email, data.password)
+            .then(res => {
+                 const loggedUser = res.user;
+                 console.log(loggedUser)
+                 updateUserProfile(data.name)
+                     .then(() => {
 
-        })
-        .catch(error=>{
-            toast(error.message)
-        })
+                     })
+                     .catch(error => {
+                         console.error(error)
+                     })
+                Swal.fire(
+                    'Account Create SuccessFuly!',
+                    'You clicked the button!',
+                    'success'
+                )
+                navigate(form, { replace: true });
+            })
+            .catch(error => {
+                toast(error.message)
+                console.log(error)
+            })
         reset()
     };
     return (
@@ -35,11 +46,11 @@ const SignUp = () => {
             <Helmet>
                 <title>Bistro Boss | SignUp</title>
             </Helmet>
-            <ToastContainer/>
+            <ToastContainer />
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left md:w-1/2">
-                       <img src={img} alt="" />
+                        <img src={img} alt="" />
                     </div>
                     <div className="card flex-shrink-0  max-w-sm shadow-2xl bg-base-100 md:w-1/2 pt-4">
                         <h1 className="text-4xl font-bold text-center">Sign Up</h1>
@@ -52,8 +63,8 @@ const SignUp = () => {
                                     name="name"
                                     placeholder="Type here" className="input input-bordered"
                                     {...register("name", { required: true })}
-                                    />
-                                    {errors.name && <span className="text-red-600">Name field is required</span>}
+                                />
+                                {errors.name && <span className="text-red-600">Name field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -62,7 +73,7 @@ const SignUp = () => {
                                 <input type="email"
                                     name="email"
                                     placeholder="example@email.com" className="input input-bordered" {...register("email", { required: true })} />
-                                    {errors.email && <span className="text-red-600">email field is required</span>}
+                                {errors.email && <span className="text-red-600">email field is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -70,15 +81,16 @@ const SignUp = () => {
                                 </label>
                                 <input type="password"
                                     name="password"
-                                    placeholder="Enter your password" className="input input-bordered" 
-                                    {...register("password",{ required: true,
-                                     minLength: 6,
-                                     pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                    placeholder="Enter your password" className="input input-bordered"
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
                                     })}
-                                    />
-                                    {errors.password && <span className="text-red-600">Password field is required</span>}
-                                    {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be six character .</p>}
-                                    {errors.password?.type === 'pattern' && <p className="text-red-600">Password must one uppercase, and on lower case, and one number and special character.</p>}
+                                />
+                                {errors.password && <span className="text-red-600">Password field is required</span>}
+                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be six character .</p>}
+                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must one uppercase, and on lower case, and one number and special character.</p>}
                             </div>
                             <div className="form-control mt-6">
                                 <input className="btn bg-[#D1A054] border-none" type="submit" value="Sign Up" />
