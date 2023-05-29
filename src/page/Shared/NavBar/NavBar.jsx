@@ -43,7 +43,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                {user ? <button onClick={handleLogout} className="btn">Log Out</button> : <Link className="btn" to='/login'>Login</Link>}
+                {user ? <><h3 className="text-2xl font-bold mr-5">{user?.displayName}</h3> <button onClick={handleLogout} className="btn">Log Out</button></> : <Link className="btn" to='/login'>Login</Link>}
                 </div>
             </div>
         </>
