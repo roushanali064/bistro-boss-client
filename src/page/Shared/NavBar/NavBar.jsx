@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProvider";
+import { useContext } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const NavBar = () => {
+    const {user, logOut}=useContext(AuthContext);
     const navOptions = <>
         <li><Link to='/'>HOME</Link></li>
         <li><Link to='/menu'>OUR MENU</Link></li>
         <li><Link to='/order/salad'>ORDER FOOD</Link></li>
     </>
+    const handleLogout=()=>{
+        logOut()
+        .then(()=>{
+              toast('Log Out Successful!')
+        })
+        .catch(error=>{
+            toast(error.message)
+        })
+    }
+
     return (
         <>
+            <ToastContainer/>
             <div className="navbar fixed z-10 bg-black bg-opacity-10 text-white max-w-screen-xl">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -27,7 +43,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Get started</a>
+                {user ? <button onClick={handleLogout} className="btn">Log Out</button> : <Link className="btn" to='/login'>Login</Link>}
                 </div>
             </div>
         </>

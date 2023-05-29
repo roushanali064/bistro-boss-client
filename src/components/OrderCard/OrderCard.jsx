@@ -4,7 +4,7 @@ const OrderCard = ({ item }) => {
     const { name, image, price, recipe } = item;
     return (
         <div className="card w-96 bg-base-100 shadow-xl space-y-6">
-            <figure><img src={image} alt="Shoes" /></figure>
+            <figure><img src={image} alt="menu" /></figure>
             <p className="bg-[#111827] absolute  right-5 text-white ml-5 mt-5 px-4 py-2 ">${price}</p>
             <div className="card-body text-center space-y-6">
                 <div className='flex justify-center'>
