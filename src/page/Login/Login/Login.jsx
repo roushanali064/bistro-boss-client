@@ -6,6 +6,8 @@ import img from '../../../assets/others/authentication2.png'
 import imgBg from '../../../assets/others/authentication.png'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
@@ -37,13 +39,8 @@ const Login = () => {
                     )
                     navigate(form, { replace: true });
                 })
-                .catch(error => {
-                    console.error(error.message)
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: "Invalid User Name Or Password!",
-                    })
+                .catch(() => {
+                    toast('Invalid User Name Or Password!')
                 })
         }
         else {
@@ -60,6 +57,7 @@ const Login = () => {
             <Helmet>
                 <title>Bistro Boss | Login</title>
             </Helmet>
+            <ToastContainer/>
             <div className="hero min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left md:w-1/2">

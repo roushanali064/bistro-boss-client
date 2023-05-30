@@ -3,28 +3,29 @@ import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaShoppingCart } from 'react-icons/fa';
 
 
 const NavBar = () => {
-    const {user, logOut}=useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const navOptions = <>
         <li><Link to='/'>HOME</Link></li>
         <li><Link to='/menu'>OUR MENU</Link></li>
         <li><Link to='/order/salad'>ORDER FOOD</Link></li>
     </>
-    const handleLogout=()=>{
+    const handleLogout = () => {
         logOut()
-        .then(()=>{
-              toast('Log Out Successful!')
-        })
-        .catch(error=>{
-            toast(error.message)
-        })
+            .then(() => {
+                toast('Log Out Successful!')
+            })
+            .catch(error => {
+                toast(error.message)
+            })
     }
 
     return (
         <>
-            <ToastContainer/>
+            <ToastContainer />
             <div className="navbar fixed z-10 bg-black bg-opacity-10 text-white max-w-screen-xl">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -43,7 +44,11 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                {user ? <><h3 className="text-2xl font-bold mr-5">{user?.displayName}</h3> <button onClick={handleLogout} className="btn">Log Out</button></> : <Link className="btn" to='/login'>Login</Link>}
+                    <button className="btn gap-2 mr-4">
+                       <FaShoppingCart/>
+                        <div className="badge badge-secondary">+0</div>
+                    </button>
+                    {user ? <><h3 className="text-2xl font-bold mr-5">{user?.displayName}</h3> <button onClick={handleLogout} className="btn">Log Out</button></> : <Link className="btn" to='/login'>Login</Link>}
                 </div>
             </div>
         </>
