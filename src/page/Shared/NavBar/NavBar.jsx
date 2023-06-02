@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaShoppingCart } from 'react-icons/fa';
+import useCarts from "../../../hooks/useCarts";
 
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [carts] = useCarts()
     const navOptions = <>
         <li><Link to='/'>HOME</Link></li>
         <li><Link to='/menu'>OUR MENU</Link></li>
@@ -44,10 +46,12 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <button className="btn gap-2 mr-4">
-                       <FaShoppingCart/>
-                        <div className="badge badge-secondary">+0</div>
-                    </button>
+                    <Link to='/dashboard/mycarts'>
+                        <button className="btn gap-2 mr-4">
+                            <FaShoppingCart />
+                            <div className="badge badge-secondary">+{carts?.length || 0}</div>
+                        </button>
+                    </Link>
                     {user ? <><h3 className="text-2xl font-bold mr-5">{user?.displayName}</h3> <button onClick={handleLogout} className="btn">Log Out</button></> : <Link className="btn" to='/login'>Login</Link>}
                 </div>
             </div>

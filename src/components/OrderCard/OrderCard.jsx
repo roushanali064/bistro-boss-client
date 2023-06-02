@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
+import useCarts from "../../hooks/useCarts";
 
 
 const OrderCard = ({ item }) => {
     const {user}=useContext(AuthContext);
     const { name, image, price, recipe, _id } = item;
-    const handleAddToCarte=(item)=>{
+    const [,refetch]=useCarts();
+    const handleAddToCarte=()=>{
         if(user && user.email){
             const cartMenu={menuItemId:_id,name,image,price,email:user.email}
-            fetch('http://localhost:5000/carts',{
+            fetch(' https://bistro-boss-server-phi.vercel.app/carts',{
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -19,7 +21,8 @@ const OrderCard = ({ item }) => {
             .then(res=>res.json())
             .then(data=>{
                 if(data.insertedId){
-                    toast('Menu add Successful')
+                    refetch()
+                    toast('Add To Cart Successful')
                 }
                 else{
                     toast('something wrong tray again')
