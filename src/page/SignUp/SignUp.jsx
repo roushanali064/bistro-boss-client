@@ -23,7 +23,14 @@ const SignUp = () => {
                  console.log(loggedUser)
                  updateUserProfile(data.name)
                      .then(() => {
-
+                        const savedUser = {name: data.name, email: data.email}
+                        fetch('http://localhost:5000/user',{
+                            method: 'POST',
+                            headers:{
+                                'content-type':'application/json'
+                            },
+                            body: JSON.stringify(savedUser)
+                        })
                      })
                      .catch(error => {
                          console.error(error)
