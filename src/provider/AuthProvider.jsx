@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 
 export const AuthContext = createContext(null)
@@ -8,24 +8,40 @@ const auth = getAuth(app)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const googleProvider = new GoogleAuthProvider();
+    const facebookProvider = new FacebookAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
     const CreateUserWithEmail = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const loginUser = (email,password)=>{
+    const loginUser = (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth,email,password)
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+    const googleLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider)
     }
 
-    const updateUserProfile=(name)=>{
+    const facebookLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, facebookProvider)
+    }
+    const githubLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, githubProvider)
+    }
+
+    const updateUserProfile = (name) => {
         return updateProfile(auth.currentUser, {
             displayName: name
-          })
+        })
     }
 
-    const logOut = ()=>{
+    const logOut = () => {
         setLoading(true)
         return signOut(auth)
     }
@@ -44,10 +60,13 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         CreateUserWithEmail,
         loginUser,
+        googleLogin,
         logOut,
         user,
         updateUserProfile,
-        loading
+        loading,
+        facebookLogin,
+        githubLogin
     }
 
     return (

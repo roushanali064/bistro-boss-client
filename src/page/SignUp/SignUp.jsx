@@ -8,6 +8,7 @@ import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 
 const SignUp = () => {
@@ -18,13 +19,11 @@ const SignUp = () => {
     const { CreateUserWithEmail, updateUserProfile } = useContext(AuthContext)
     const onSubmit = data => {
         CreateUserWithEmail(data.email, data.password)
-            .then(res => {
-                 const loggedUser = res.user;
-                 console.log(loggedUser)
+            .then(() => {
                  updateUserProfile(data.name)
                      .then(() => {
                         const savedUser = {name: data.name, email: data.email}
-                        fetch('http://localhost:5000/user',{
+                        fetch('https://bistro-boss-server-phi.vercel.app/user',{
                             method: 'POST',
                             headers:{
                                 'content-type':'application/json'
@@ -104,6 +103,7 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p className='text-[#D1A054] pb-4 text-center text-xl'>Already registered? <Link to='/login'>Go to log in</Link></p>
+                        <SocialLogin/>
                     </div>
                 </div>
             </div>

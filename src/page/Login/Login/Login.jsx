@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SocialLogin from '../../Shared/SocialLogin/SocialLogin';
 
 
 const Login = () => {
@@ -96,6 +97,7 @@ const Login = () => {
                             </div>
                         </form>
                         <p className='text-[#D1A054] pb-4 text-center text-xl'>New here? <Link to='/signUp'>Create a New Account</Link></p>
+                        <SocialLogin/>
                     </div>
                 </div>
             </div>

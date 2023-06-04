@@ -28,7 +28,7 @@ const NavBar = () => {
     return (
         <>
             <ToastContainer />
-            <div className="navbar fixed z-10 bg-black bg-opacity-10 text-white max-w-screen-xl">
+            <div className="navbar fixed z-10 bg-[#15151580]  text-white max-w-screen-xl py-4">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -38,7 +38,7 @@ const NavBar = () => {
                             {navOptions}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">Bistro Boss</a>
+                    <a className="btn btn-ghost normal-case text-xl"><h1 className="uppercase text-lg font-bold"><span className="font-black text-2xl">Bistro Boss</span><br />Restaurant</h1></a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
