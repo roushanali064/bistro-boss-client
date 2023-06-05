@@ -2,13 +2,15 @@ import { FaBook, FaCalendarAlt, FaHome, FaShoppingBasket, FaShoppingCart, FaUser
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, Outlet } from "react-router-dom";
 import useCarts from "../hooks/useCarts";
+import useAdmin from "../hooks/useAdmin";
 
 
 const DashBoard = () => {
 
     const [carts] = useCarts();
     // TODO: is admin set dynamic on dataBase
-    const isAdmin = true;
+    // const isAdmin = true;
+    const [isAdmin]=useAdmin()
 
     return (
         <div className="drawer drawer-mobile ">
