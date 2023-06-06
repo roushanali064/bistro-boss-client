@@ -11,6 +11,8 @@ const DashBoard = () => {
     // TODO: is admin set dynamic on dataBase
     // const isAdmin = true;
     const [isAdmin]=useAdmin()
+    // const isAdmin=false
+    console.log(isAdmin)
 
     return (
         <div className="drawer drawer-mobile ">
@@ -26,7 +28,7 @@ const DashBoard = () => {
                 <ul className="menu p-4 w-80 text-[#151515] uppercase">
 
                     {
-                        isAdmin ? <>
+                        isAdmin?.admin ? <>
                             <li>
                                 <NavLink
                                     className={({ isActive }) =>
@@ -37,12 +39,12 @@ const DashBoard = () => {
                             <li>
                                 <NavLink className={({ isActive }) =>
                                     isActive ? "text-white bg-transparent" : ""
-                                } to='/dashboard/reservation'><FaUtensils/> Add Items</NavLink>
+                                } to='/dashboard/additem'><FaUtensils/> Add Items</NavLink>
                             </li>
                             <li>
                                 <NavLink className={({ isActive }) =>
                                     isActive ? "text-white bg-transparent" : ""
-                                } to='/dashboard/history'><FaWallet/> Manage Items</NavLink>
+                                } to='/dashboard/manageitems'><FaWallet/> Manage Items</NavLink>
                             </li>
                             <li>
                                 <NavLink className={({ isActive }) =>
